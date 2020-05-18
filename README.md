@@ -1,1 +1,1 @@
-# Varshitha daily_coding
+# Certification course and update daily updates
