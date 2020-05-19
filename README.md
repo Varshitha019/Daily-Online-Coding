@@ -1,1 +1,1 @@
-# Certification course and update daily updates
+# Certification course and online coding daily updates
