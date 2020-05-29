@@ -1,5 +1,6 @@
 5. Write a Java Program to find longest substring without repeating characters in a string.
 
+
 import java.util.LinkedHashMap;
 public class Main
 { 
@@ -59,7 +60,7 @@ public class Main
 
                {             
 
-                 longestSubstring("PreethiNayak");
+                 longestSubstring("ThisisJavaProgram");
 
                }             
 
