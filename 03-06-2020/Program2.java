@@ -1,148 +1,278 @@
 2. Write a Java Program to Implement Circular Doubly Linked List
-import java.util.*; 
+
+import java.util.Scanner;
+class Node
+{
+    protected int data;
+    protected Node next, prev;
+
   
-class Main
-{  
+    public Node()
+    {
+        next = null;
+        prev = null;
+        data = 0;
+    }
+   
+    public Node(int d, Node n, Node p)
+    {
+        data = d;
+        next = n;
+        prev = p;
+    }
+   
+    public void setLinkNext(Node n)
+    {
+        next = n;
+    }
+   
+    public void setLinkPrev(Node p)
+    {
+        prev = p;
+    }
   
-static Node start; 
+    public Node getLinkNext()
+    {
+        return next;
+    }
+   
+    public Node getLinkPrev()
+    {
+        return prev;
+    }
+   
+    public void setData(int d)
+    {
+        data = d;
+    }
+ 
+    public int getData()
+    {
+        return data;
+    }
+}
+
+
+class linkedList
+{
+    protected Node start;
+    protected Node end ;
+    public int size;
+
   
-// Structure of a Node  
-static class Node  
-{  
-    int data;  
-    Node next;  
-    Node prev;  
-};  
+    public linkedList()
+    {
+        start = null;
+        end = null;
+        size = 0;
+    }
+
+    public boolean isEmpty()
+    {
+        return start == null;
+    }
+
+    public int getSize()
+    {
+        return size;
+    }
   
-// Function to insert at the end  
-static void insertEnd(int value)  
-{  
-    // If the list is empty, create a single node  
-    // circular and doubly list  
-    if (start == null)  
-    {  
-        Node new_node = new Node();  
-        new_node.data = value;  
-        new_node.next = new_node.prev = new_node;  
-        start = new_node;  
-        return;  
-    }  
-  
-    // If list is not empty  
-  
-    /* Find last node */
-    Node last = (start).prev;  
-  
-    // Create Node dynamically  
-    Node new_node = new Node();  
-    new_node.data = value;  
-  
-    // Start is going to be next of new_node  
-    new_node.next = start;  
-  
-    // Make new node previous of start  
-    (start).prev = new_node;  
-  
-    // Make last preivous of new node  
-    new_node.prev = last;  
-  
-    // Make new node next of old last  
-    last.next = new_node;  
-}  
-  
-// Function to insert Node at the beginning  
-// of the List,  
-static void insertBegin(int value)  
-{  
-    // Pointer points to last Node  
-    Node last = (start).prev;  
-  
-    Node new_node = new Node();  
-    new_node.data = value; // Inserting the data  
-  
-    // setting up previous and next of new node  
-    new_node.next = start;  
-    new_node.prev = last;  
-  
-    // Update next and previous pointers of start  
-    // and last.  
-    last.next = (start).prev = new_node;  
-  
-    // Update start pointer  
-    start = new_node;  
-}  
-  
-// Function to insert node with value as value1.  
-// The new node is inserted after the node with  
-// with value2  
-static void insertAfter(int value1,  
-                                    int value2)  
-{  
-    Node new_node = new Node();  
-    new_node.data = value1; // Inserting the data  
-  
-    // Find node having value2 and next node of it  
-    Node temp = start;  
-    while (temp.data != value2)  
-        temp = temp.next;  
-    Node next = temp.next;  
-  
-    // insert new_node between temp and next.  
-    temp.next = new_node;  
-    new_node.prev = temp;  
-    new_node.next = next;  
-    next.prev = new_node;  
-}  
-  
-static void display()  
-{  
-    Node temp = start;  
-  
-    System.out.printf("\nTraversal in forward direction \n");  
-    while (temp.next != start)  
-    {  
-        System.out.printf("%d ", temp.data);  
-        temp = temp.next;  
-    }  
-    System.out.printf("%d ", temp.data);  
-  
-    System.out.printf("\nTraversal in reverse direction \n");  
-    Node last = start.prev;  
-    temp = last;  
-    while (temp.prev != last)  
-    {  
-        System.out.printf("%d ", temp.data);  
-        temp = temp.prev;  
-    }  
-    System.out.printf("%d ", temp.data);  
-}  
-  
-/* Driver code*/
-public static void main(String[] args)  
-{  
-    /* Start with the empty list */
-    Node start = null;  
-  
-    // Insert 5. So linked list becomes 5.null  
-    insertEnd(5);  
-  
-    // Insert 4 at the beginning. So linked  
-    // list becomes 4.5  
-    insertBegin(4);  
-  
-    // Insert 7 at the end. So linked list  
-    // becomes 4.5.7  
-    insertEnd(7);  
-  
-    // Insert 8 at the end. So linked list  
-    // becomes 4.5.7.8  
-    insertEnd(8);  
-  
-    // Insert 6, after 5. So linked list  
-    // becomes 4.5.6.7.8  
-    insertAfter(6, 5);  
-  
-    System.out.printf("Circular doubly linked list is: ");  
-    display();  
-}  
-}  
+    public void insertAtStart(int val)
+    {
+        Node nptr = new Node(val, null, null);
+        if (start == null)
+            {
+                nptr.setLinkNext(nptr);
+                nptr.setLinkPrev(nptr);
+                start = nptr;
+                end = start;
+            }
+        else
+            {
+                nptr.setLinkPrev(end);
+                end.setLinkNext(nptr);
+                start.setLinkPrev(nptr);
+                nptr.setLinkNext(start);
+                start = nptr;
+            }
+        size++ ;
+    }
+ 
+    public void insertAtEnd(int val)
+    {
+        Node nptr = new Node(val, null, null);
+        if (start == null)
+            {
+                nptr.setLinkNext(nptr);
+                nptr.setLinkPrev(nptr);
+                start = nptr;
+                end = start;
+            }
+        else
+            {
+                nptr.setLinkPrev(end);
+                end.setLinkNext(nptr);
+                start.setLinkPrev(nptr);
+                nptr.setLinkNext(start);
+                end = nptr;
+            }
+        size++;
+    }
+   
+    public void insertAtPos(int val, int pos)
+    {
+        Node nptr = new Node(val, null, null);
+        if (pos == 1)
+            {
+                insertAtStart(val);
+                return;
+            }
+        Node ptr = start;
+        for (int i = 2; i <= size; i++)
+            {
+                if (i == pos)
+                    {
+                        Node tmp = ptr.getLinkNext();
+                        ptr.setLinkNext(nptr);
+                        nptr.setLinkPrev(ptr);
+                        nptr.setLinkNext(tmp);
+                        tmp.setLinkPrev(nptr);
+                    }
+                ptr = ptr.getLinkNext();
+            }
+        size++ ;
+    }
+   
+    public void deleteAtPos(int pos)
+    {
+        if (pos == 1)
+            {
+                if (size == 1)
+                    {
+                        start = null;
+                        end = null;
+                        size = 0;
+                        return;
+                    }
+                start = start.getLinkNext();
+                start.setLinkPrev(end);
+                end.setLinkNext(start);
+                size--;
+                return ;
+            }
+        if (pos == size)
+            {
+                end = end.getLinkPrev();
+                end.setLinkNext(start);
+                start.setLinkPrev(end);
+                size-- ;
+            }
+        Node ptr = start.getLinkNext();
+        for (int i = 2; i <= size; i++)
+            {
+                if (i == pos)
+                    {
+                        Node p = ptr.getLinkPrev();
+                        Node n = ptr.getLinkNext();
+                        p.setLinkNext(n);
+                        n.setLinkPrev(p);
+                        size-- ;
+                        return;
+                    }
+                ptr = ptr.getLinkNext();
+            }
+    }
+   
+    public void display()
+    {
+        System.out.print("\nCircular Doubly Linked List = ");
+        Node ptr = start;
+        if (size == 0)
+            {
+                System.out.print("empty\n");
+                return;
+            }
+        if (start.getLinkNext() == start)
+            {
+                System.out.print(start.getData()+ " <-> "+ptr.getData()+ "\n");
+                return;
+            }
+        System.out.print(start.getData()+ " <-> ");
+        ptr = start.getLinkNext();
+        while (ptr.getLinkNext() != start)
+            {
+                System.out.print(ptr.getData()+ " <-> ");
+                ptr = ptr.getLinkNext();
+            }
+        System.out.print(ptr.getData()+ " <-> ");
+        ptr = ptr.getLinkNext();
+        System.out.print(ptr.getData()+ "\n");
+    }
+}
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Scanner scan = new Scanner(System.in);
+      
+        linkedList list = new linkedList();
+        System.out.println("Circular Doubly Linked List Test\n");
+        char ch;
+
+        do
+            {
+                System.out.println("\nCircular Doubly Linked List Operations\n");
+                System.out.println("1. insert at begining");
+                System.out.println("2. insert at end");
+                System.out.println("3. insert at position");
+                System.out.println("4. delete at position");
+                System.out.println("5. check empty");
+                System.out.println("6. get size");
+                int choice = scan.nextInt();
+                switch (choice)
+                    {
+                    case 1 :
+                        System.out.println("Enter integer element to insert");
+                        list.insertAtStart( scan.nextInt() );
+                        break;
+                    case 2 :
+                        System.out.println("Enter integer element to insert");
+                        list.insertAtEnd( scan.nextInt() );
+                        break;
+                    case 3 :
+                        System.out.println("Enter integer element to insert");
+                        int num = scan.nextInt() ;
+                        System.out.println("Enter position");
+                        int pos = scan.nextInt() ;
+                        if (pos < 1 || pos > list.getSize() )
+                            System.out.println("Invalid position\n");
+                        else
+                            list.insertAtPos(num, pos);
+                        break;
+                    case 4 :
+                        System.out.println("Enter position");
+                        int p = scan.nextInt() ;
+                        if (p < 1 || p > list.getSize() )
+                            System.out.println("Invalid position\n");
+                        else
+                            list.deleteAtPos(p);
+                        break;
+                    case 5 :
+                        System.out.println("Empty status = "+ list.isEmpty());
+                        break;
+                    case 6 :
+                        System.out.println("Size = "+ list.getSize() +"\n");
+                        break;
+                    default :
+                        System.out.println("Wrong Entry\n ");
+                        break;
+                    }
+              
+                list.display();
+                System.out.println("\nDo you want to continue (Type y or n)\n");
+                ch = scan.next().charAt(0);
+            }
+        while (ch == 'Y'|| ch == 'y');
+    }
+}
