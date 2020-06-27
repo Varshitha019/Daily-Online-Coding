@@ -1,4 +1,5 @@
-1.Write a java program to print all permutations of a given string.
+1. Write a java program to print all permutations of a given string.
+
 Description:
 Here is the steps to implement string permutations:
 Take out the first char and keep it constant. And permute rest of the characters.
