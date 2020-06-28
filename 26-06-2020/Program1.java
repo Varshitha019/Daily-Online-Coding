@@ -30,4 +30,4 @@ String s = sc.next();
 printPermutn(s, "");
 }
 } 
-}
+
