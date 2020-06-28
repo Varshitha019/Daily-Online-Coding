@@ -1,6 +1,6 @@
 1. Write a java program to print all permutations of a given string.
 
-Description
+Description:
 Here is the steps to implement string permutations:
 Take out the first char and keep it constant. And permute rest of the characters.
 User recursive method call to permute rest of the string except first character.
